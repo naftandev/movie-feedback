@@ -249,6 +249,7 @@ main {
   border-left: 12px solid transparent;
   position: absolute;
   top: 100%;
+  left: calc(50% - 12px);
 }
 
 .tooltip span {
@@ -553,20 +554,6 @@ main {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.tooltipHide {
-  animation: tooltipHide var(--transition-duration-hight) both;
-}
-@keyframes tooltipHide {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-15px);
   }
 }
 

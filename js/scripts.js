@@ -103,40 +103,34 @@ score_stars.forEach(score_star => {
 /*-- START: Feedback */
 // Info (Tooltip)
 $body.addEventListener('mouseover', event => {
-  if (!$tooltip.classList.contains('hide')) {
-    $tooltip.classList.add('hide')
-  }
   if (event.target === $like) {
     const likesTotal = Number(window.localStorage.getItem('likeTemp')) + 1157
     $tooltip.style.top = `calc(${$like.offsetTop}px - 55px)`;
-    $tooltip.style.left = `calc(${$like.offsetLeft}px - 8px)`;
+    $tooltip.style.left = `calc(${$like.offsetLeft}px - 30px)`;
     $tooltip.querySelector('span').textContent = `${likesTotal} Likes`
     $tooltip.classList.remove('hide')
     $tooltip.classList.add('tooltipShow')
   } else if (event.target === $comment) {
     $tooltip.style.top = `calc(${$comment.offsetTop}px - 55px)`;
-    $tooltip.style.left = `calc(${$comment.offsetLeft}px - 8px)`;
+    $tooltip.style.left = `calc(${$comment.offsetLeft}px - 50px)`;
     $tooltip.querySelector('span').textContent = '267 Comentarios'
     $tooltip.classList.remove('hide')
     $tooltip.classList.add('tooltipShow')
   } else if (event.target === $share) {
     $tooltip.style.top = `calc(${$share.offsetTop}px - 55px)`;
-    $tooltip.style.left = `calc(${$share.offsetLeft}px - 8px)`;
+    $tooltip.style.left = `calc(${$share.offsetLeft}px - 60px)`;
     $tooltip.querySelector('span').textContent = 'Compartido 27 veces'
     $tooltip.classList.remove('hide')
     $tooltip.classList.add('tooltipShow')
   } else {
     if (!$tooltip.classList.contains('hide')) {
-      $tooltip.classList.add('tooltipHide')
+      $tooltip.classList.add('hide')
     }
   }
 })
 $tooltip.addEventListener('animationend', event => {
   if (event.animationName === 'tooltipShow') {
     $tooltip.classList.remove('tooltipShow')
-  } else if (event.animationName === 'tooltipHide') {
-    $tooltip.classList.add('hide')
-    $tooltip.classList.remove('tooltipHide')
   }
 })
 
