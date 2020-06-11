@@ -103,6 +103,9 @@ score_stars.forEach(score_star => {
 /*-- START: Feedback */
 // Info (Tooltip)
 $body.addEventListener('mouseover', event => {
+  if (!$tooltip.classList.contains('hide')) {
+    $tooltip.classList.add('hide')
+  }
   if (event.target === $like) {
     const likesTotal = Number(window.localStorage.getItem('likeTemp')) + 1157
     $tooltip.style.top = `calc(${$like.offsetTop}px - 55px)`;

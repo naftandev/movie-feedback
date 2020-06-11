@@ -121,9 +121,12 @@ main {
 }
 
 .movie-image--card-details {
+  display: flex;
   margin-right: 15px;
   position: relative;
   float: left;
+  justify-content: center;
+  align-items: center;
   transition: opacity var(--transition-duration-hight);
   will-change: opacity;
 }
