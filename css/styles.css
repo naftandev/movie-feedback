@@ -142,9 +142,6 @@ main {
   transition: opacity var(--transition-duration-hight);
   will-change: opacity;
 }
-.movie-image--card-details:hover span {
-  opacity: var(--opacity-low);
-}
 
 .movie-score {
   margin-bottom: var(--margin);
@@ -174,12 +171,6 @@ main {
 }
 .score button:hover {
   cursor: pointer;
-  transform: rotate(360deg);
-  color: var(--color-score);
-}
-.score button:hover ~ button {
-  transform: rotate(360deg);
-  color: var(--color-score);
 }
 
 .score button i {
@@ -202,7 +193,6 @@ main {
 .feedback button i {
   font-size: var(--icon-size);
 }
-
 .feedback button i:hover {
   cursor: pointer;
 }
@@ -213,23 +203,14 @@ main {
 .fa-heart {
   color: var(--color-gray);
 }
-.fa-heart:hover {
-  color: var(--color-like-press);
-}
 .fa-comments, .fa-share {
   color: var(--color-light);
 }
 .fa-comments {
   -webkit-text-stroke: var(--text-stroke-width) var(--color-comment);
 }
-.fa-comments:hover {
-  color: var(--color-comment);
-}
 .fa-share {
   -webkit-text-stroke: var(--text-stroke-width) var(--color-share);
-}
-.fa-share:hover {
-  color: var(--color-share);
 }
 
 .tooltip {
@@ -314,13 +295,10 @@ main {
 }
 .modal__form button:hover {
   cursor: pointer;
-  color: var(--color-light);
-  background-color: var(--color-comment);
 }
 .modal__form button:active {
   color: var(--color-light);
-  border: 2px solid var(--color-comment-press);
-  background-color: var(--color-comment-press);
+  background-color: var(--color-comment);
 }
 
 .social {
@@ -338,39 +316,40 @@ main {
 .fa-instagram, .fa-twitter, .fa-whatsapp, .fa-facebook-messenger, .fa-facebook, .fa-envelope-open-text, .fa-linkedin, .fa-link {
   color: #272a2e;
 }
-
 .fa-instagram:hover, .fa-twitter:hover, .fa-whatsapp:hover, .fa-facebook-messenger:hover, .fa-facebook:hover, .fa-envelope-open-text:hover, .fa-linkedin:hover, .fa-link:hover {
   cursor: pointer;
 }
-.fa-instagram:hover {
+
+.fa-instagram:active {
   background-image: linear-gradient(to top right, #ffaa00, #7700ff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.fa-twitter:hover {
+.fa-twitter:active {
   color: #00a7e7;
 }
-.fa-whatsapp:hover {
+.fa-whatsapp:active {
   color: #38c045;
 }
-.fa-facebook-messenger:hover {
+.fa-facebook-messenger:active {
   color: #0080f8;
 }
-.fa-facebook:hover {
+.fa-facebook:active {
   color: #395794;
 }
-.fa-envelope-open-text:hover {
+.fa-envelope-open-text:active {
   color: #df3734;
 }
-.fa-linkedin:hover {
+.fa-linkedin:active {
   color: #0271ae;
 }
-.fa-link:hover {
+.fa-link:active {
   color: #795548;
 }
 
 
+/*--- USED BY JAVASCRIPT ---*/
 .hide {
   display: none;
 }
@@ -559,8 +538,66 @@ main {
 
 
 /*--- BREAKPOINTS ---*/
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 426px) {
   .social i {
     font-size: 45px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .movie-image--card-details:hover span {
+    opacity: var(--opacity-low);
+  }
+
+  .score button:hover {
+    transform: rotate(360deg);
+    color: var(--color-score);
+  }
+  .score button:hover ~ button {
+    transform: rotate(360deg);
+    color: var(--color-score);
+  }
+
+  .fa-heart:hover {
+    color: var(--color-like-press);
+  }
+  .fa-comments:hover {
+    color: var(--color-comment);
+  }
+  .fa-share:hover {
+    color: var(--color-share);
+  }
+
+  .modal__form button:hover {
+    color: var(--color-light);
+    background-color: var(--color-comment);
+  }
+
+  .fa-instagram:hover {
+    background-image: linear-gradient(to top right, #ffaa00, #7700ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .fa-twitter:hover {
+    color: #00a7e7;
+  }
+  .fa-whatsapp:hover {
+    color: #38c045;
+  }
+  .fa-facebook-messenger:hover {
+    color: #0080f8;
+  }
+  .fa-facebook:hover {
+    color: #395794;
+  }
+  .fa-envelope-open-text:hover {
+    color: #df3734;
+  }
+  .fa-linkedin:hover {
+    color: #0271ae;
+  }
+  .fa-link:hover {
+    color: #795548;
   }
 }
