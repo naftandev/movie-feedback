@@ -85,15 +85,18 @@ function addScore(score) {
   }
 })()
 
+
 score_stars.forEach(score_star => {
+  function removeScorePress(event) {
+    if (event.animationName === 'scorePress') {
+      score_star.classList.remove('scorePress')
+    }
+    score_star.removeEventListener('animationend', removeScorePress)
+  }
   score_star.addEventListener('click', event => {
     score_stars.forEach(score_star => score_star.classList.remove('scored'))
     score_star.classList.add('scorePress')
-    score_star.addEventListener('animationend', event => {
-      if (event.animationName === 'scorePress') {
-        score_star.classList.remove('scorePress')
-      }
-    })
+    score_star.addEventListener('animationend', removeScorePress)
     addScore(event.target.dataset.score)
   })
 })
@@ -102,6 +105,12 @@ score_stars.forEach(score_star => {
 
 /*-- START: Feedback */
 // Info (Tooltip)
+function removeTooltipShow(event) {
+  if (event.animationName === 'tooltipShow') {
+    $tooltip.classList.remove('tooltipShow')
+  }
+  $tooltip.removeEventListener('animationend', removeTooltipShow)
+}
 $body.addEventListener('mouseover', event => {
   if (event.target === $like) {
     const likesTotal = Number(window.localStorage.getItem('likeTemp')) + 1157
@@ -110,27 +119,25 @@ $body.addEventListener('mouseover', event => {
     $tooltip.style.left = `calc(${$like.offsetLeft}px - 30px)`;
     $tooltip.classList.remove('hide')
     $tooltip.classList.add('tooltipShow')
+    $tooltip.addEventListener('animationend', removeTooltipShow)
   } else if (event.target === $comment) {
     $tooltip.querySelector('span').textContent = '267 Comentarios'
     $tooltip.style.top = `calc(${$comment.offsetTop}px - 55px)`;
     $tooltip.style.left = `calc(${$comment.offsetLeft}px - 50px)`;
     $tooltip.classList.remove('hide')
     $tooltip.classList.add('tooltipShow')
+    $tooltip.addEventListener('animationend', removeTooltipShow)
   } else if (event.target === $share) {
     $tooltip.querySelector('span').textContent = 'Compartido 27 veces'
     $tooltip.style.top = `calc(${$share.offsetTop}px - 55px)`;
     $tooltip.style.left = `calc(${$share.offsetLeft}px - 60px)`;
     $tooltip.classList.remove('hide')
     $tooltip.classList.add('tooltipShow')
+    $tooltip.addEventListener('animationend', removeTooltipShow)
   } else {
     if (!$tooltip.classList.contains('hide')) {
       $tooltip.classList.add('hide')
     }
-  }
-})
-$tooltip.addEventListener('animationend', event => {
-  if (event.animationName === 'tooltipShow') {
-    $tooltip.classList.remove('tooltipShow')
   }
 })
 
@@ -154,81 +161,86 @@ function addLike(feedback) {
   }
 })()
 
+function removeLikePress(event) {
+  if (event.animationName === 'likePress') {
+    $like.classList.remove('likePress')
+  }
+  $like.removeEventListener('animationend', removeLikePress)
+}
 $like.addEventListener('click', event => {
   $like.classList.add('likePress')
-  $like.addEventListener('animationend', event => {
-    if (event.animationName === 'likePress') {
-      $like.classList.remove('likePress')
-    }
-  })
+  $like.addEventListener('animationend', removeLikePress)
   addLike(event.target.dataset.feedback)
 })
 
-// COMMENT
-function closeModal(event) {
-  if (event.target === $modalCommentBG || event.target === $closeCommentModal) {
-    if (!$modalCommentBG.classList.contains('hide')) {
-      $modalComment.classList.add('popOut')
-      $modalCommentBG.removeEventListener('click', closeModal)
-      $closeCommentModal.removeEventListener('click', closeModal)
-    }
-  } else if (event.target === $modalShareBG || event.target === $closeShareModal) {
-    if (!$modalShareBG.classList.contains('hide')) {
-      $modalShare.classList.add('hideToTop')
-      $modalShareBG.removeEventListener('click', closeModal)
-      $closeShareModal.removeEventListener('click', closeModal)
-    }
-  }
-}
-
-$comment.addEventListener('click', () => {
-  $comment.classList.add('commentPress')
-  $comment.addEventListener('animationstart', event => {
-    if (event.animationName === 'commentPress') {
-      $modalComment.classList.add('popIn')
-      $modalCommentBG.classList.remove('hide')
-      $modalCommentBG.addEventListener('click', closeModal)
-      $closeCommentModal.addEventListener('click', closeModal)
-    }
-  })
-})
-$comment.addEventListener('animationend', event => {
+// COMMENT AND Share
+function removeCommentPress(event) {
   if (event.animationName === 'commentPress') {
     $comment.classList.remove('commentPress')
   }
-})
-$modalComment.addEventListener('animationend', event => {
+  $comment.removeEventListener('animationend', removeCommentPress)
+}
+function removePop() {
   if (event.animationName === 'popIn') {
     $modalComment.classList.remove('popIn')
   } else if (event.animationName === 'popOut') {
     $modalComment.classList.remove('popOut')
     $modalCommentBG.classList.add('hide')
   }
-})
+  $modalComment.removeEventListener('animationend', removePop)
+}
 
-// SHARE
-$share.addEventListener('click', () => {
-  $share.classList.add('sharePress')
-  $share.addEventListener('animationstart', event => {
-    if (event.animationName === 'sharePress') {
-      $modalShareBG.classList.remove('hide')
-      $modalShare.classList.add('showToBottom')
-      $modalShareBG.addEventListener('click', closeModal)
-      $closeShareModal.addEventListener('click', closeModal)
-    }
-  })
-})
-$share.addEventListener('animationend', event => {
+function removeSharePress(event) {
   if (event.animationName === 'sharePress') {
     $share.classList.remove('sharePress')
   }
-})
-$modalShare.addEventListener('animationend', event => {
+  $share.removeEventListener('animationend', removeSharePress)
+}
+function modalAnimation(event) {
   if (event.animationName === 'showToBottom') {
     $modalShare.classList.remove('showToBottom')
   } else if (event.animationName === 'hideToTop') {
     $modalShare.classList.remove('hideToTop')
     $modalShareBG.classList.add('hide')
   }
+  $modalShare.removeEventListener('animationend', modalAnimation)
+}
+
+function closeModal(event) {
+  if (event.target === $modalCommentBG || event.target === $closeCommentModal) {
+    if (!$modalCommentBG.classList.contains('hide')) {
+      $modalComment.classList.add('popOut')
+      $modalComment.addEventListener('animationend', removePop)
+      $modalCommentBG.removeEventListener('click', closeModal)
+      $closeCommentModal.removeEventListener('click', closeModal)
+    }
+  } else if (event.target === $modalShareBG || event.target === $closeShareModal) {
+    if (!$modalShareBG.classList.contains('hide')) {
+      $modalShare.classList.add('hideToTop')
+      $modalShare.addEventListener('animationend', modalAnimation)
+      $modalShareBG.removeEventListener('click', closeModal)
+      $closeShareModal.removeEventListener('click', closeModal)
+    }
+  }
+}
+// COMMENT
+$comment.addEventListener('click', () => {
+  $comment.classList.add('commentPress')
+  $modalComment.classList.add('popIn')
+  $comment.addEventListener('animationend', removeCommentPress)
+  $modalCommentBG.classList.remove('hide')
+  $modalCommentBG.addEventListener('click', closeModal)
+  $closeCommentModal.addEventListener('click', closeModal)
+})
+
+// SHARE
+$share.addEventListener('click', () => {
+  $share.classList.add('sharePress')
+  $share.addEventListener('animationend', removeSharePress)
+  $modalShareBG.classList.remove('hide')
+  $modalShare.classList.add('showToBottom')
+  $modalShare.addEventListener('animationend', modalAnimation)
+  $modalShareBG.addEventListener('click', closeModal)
+  $closeShareModal.addEventListener('click', closeModal)
 })
 /*-- END: Feedback */
